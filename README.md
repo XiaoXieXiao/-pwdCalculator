@@ -1,15 +1,14 @@
 # Password Calculator
 Creating safe hard passwords
 
-A module that uses a compination of two dictionaries and a second degree based incoder
-
+A module that uses a combination of two dictionaries and a second degree based encoder.
 
 
 <h1>Ex</h1> 
 
-<h2> What u need to provide in our standards: </h2>
+<h2> What you need to provide in our standards: </h2>
 
-input your numerical password and function enconder: </br>
+input your numerical password and function encoder: </br>
 
 <strong>Your password:</strong> 123321246 </br>
 <strong>Selected function:</strong> x^2 + 2x </br>
