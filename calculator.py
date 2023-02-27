@@ -6,107 +6,85 @@ class HardPassword:
         self.default_pwd = default_pwd
         self.terms = terms
 
+    # gets a number and turn into a positive number
     @staticmethod
     def positive(num):
-        num = num*num
+        # the number goes to the second power then we take his square root, giving the positive number if the number
+        # was negative or positive
+        num = num * num
         num = sqrt(num)
         return int(num)
 
+    # gets a number and turn into a letter
     def letters(self, num):
-        alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-                    "u", "v", "x", "w", "y", "z"]
+        # library with the alphabet letters
+        alphabet = ["-", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+                    "t", "u", "v", "x", "w", "y", "z"]
 
-        if num < 0:
+        if num < 0:  # if the number is negative he turns the number into positive
             num = HardPassword(self.default_pwd, self.terms).positive(num)
 
-        while num > 26:
+        while num > 26:  # if the number is higher then 26 it will loop to get a number that is between 26 and 0
             num -= 26
 
-        if num - 1 == 0:
-            let = "-"
-
-        let = alphabet[num-1]
+        # now that we have a number that fits the amount of letters we get a letter
+        let = alphabet[num]
         return let
 
+    # gets a number and turn into a character
     def chars(self, num):
-        specials = [")", '!', "@", "#", "$", "%", "¨", "&", "*", "("]
+        # library with the possible characters
+        specials = [")", '!', "@", "#", "$", "%", "¨", "&", "*", "(", ")"]
 
-        if num < 0:
+        if num < 0:  # if the number is negative he turns the number into positive
             num = HardPassword(self.default_pwd, self.terms).positive(num)
 
-        if num > 10:
-            char = "-"
-            return char
-
-        if num == 10:
-            num = 0
+        # gives a character to a number
+        while num > 10:  # if the number is higher then 10 it will loop to get a number that is between 10 and 0
+            num -= 10
 
         char = specials[num]
         return char
 
+    # get a number password, a function to encode it and encodes the password
     @staticmethod
     def func(default_pwd, terms):
         func_pwd = []
 
+        # encode the number puting as the variable in the second degree function
         for pwd_num in default_pwd:
             x = pwd_num
             y = terms[0] * x ** 2 + terms[1] * x ** 1 + terms[2] * x ** 0
-            func_pwd.append(y)
+            func_pwd.append(int(y))
         return func_pwd
 
+    # gets the encoded password and turns numbers into letters, upper case letters and characters
     def pwd(self, func_pwd):
         i = 0
         new_pwd = ''
         password_i = 0
 
-        for x in func_pwd:
+        for x in func_pwd:  # loops the type of number encoding
             if i == 0:
-                password_i = x
+                password_i = HardPassword(self.default_pwd, self.terms).positive(x)  # gives a number to the password
             elif i == 1:
-                password_i = HardPassword(self.default_pwd, self.terms).chars(x)
+                password_i = HardPassword(self.default_pwd, self.terms).chars(x)  # gives a character to the password
             elif i == 2:
+                # gives an upper case letter to the password
                 password_i = HardPassword(self.default_pwd, self.terms).letters(x).upper()
             elif i == 3:
-                password_i = HardPassword(self.default_pwd, self.terms).letters(x)
+                password_i = HardPassword(self.default_pwd, self.terms).letters(x)  # gives a letter to the password
 
-            new_pwd += str(password_i)
+            new_pwd += str(password_i)  # generates the password string
 
-            i += 1
+            i += 1  # looper index
             if i > 3:
                 i = 0
 
         return new_pwd
 
+    # it's the function that does all the process above and return the hard encoded password
     def create_pwd(self):
         function_password = HardPassword(self.default_pwd, self.terms).func(self.default_pwd, self.terms)
         created_password = HardPassword(self.default_pwd, self.terms).pwd(function_password)
         return print(created_password)
-
-
-default_password = [1, 4, 7, 5, 2, 8, 2, 1, 1, 1, 2, 0, 0, 0, 0, 3, 1, 1, 1, 9, 7, 5]
-function1 = [1, 0, -2]
-function2 = [0, 1, -8]
-function3 = [0, 1, -3]
-function4 = [1, 0, 0]
-function5 = [0, 1, -1]
-function6 = [0, 1, 0]
-function7 = [1, 0, -2]
-function8 = [0, 3, -1]
-
-password1 = HardPassword(default_password, function1)
-password2 = HardPassword(default_password, function2)
-password3 = HardPassword(default_password, function3)
-password4 = HardPassword(default_password, function4)
-password5 = HardPassword(default_password, function5)
-password6 = HardPassword(default_password, function6)
-password7 = HardPassword(default_password, function7)
-password8 = HardPassword(default_password, function8)
-
-password1.create_pwd()
-password2.create_pwd()
-password3.create_pwd()
-password4.create_pwd()
-password5.create_pwd()
-password6.create_pwd()
-password7.create_pwd()
-password8.create_pwd()
