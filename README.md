@@ -1,31 +1,59 @@
-# Password Calculator
-Creating safe hard passwords
+## HardPassword:  Creating Unbreakable Passwords
 
-A module that uses a combination of two dictionaries and a second degree based encoder.
+This Python module offers a robust solution for generating secure, complex passwords from simple numerical input. Using a combination of a customizable second-degree function and a layered encoding system, it transforms your number-based password into a truly uncrackable string.
 
+**Here's how it works:**
 
-<h1>Ex</h1> 
+1. **Input:**
+   - Provide your numerical password as a list of integers (e.g., `[1, 2, 3, 4, 5]`).
+   - Define your encoding function using a list of coefficients for the second-degree equation (e.g., `[1, 2, 0]` representing x² + 2x).
 
-<h2> What you need to provide in our standards: </h2>
+2. **Encoding:**
+   - The module applies the provided function to each digit in your password, generating a new list of encoded numbers.
 
-input your numerical password and function encoder: </br>
+3. **Transformation:**
+   - Each encoded number is then transformed into a character using a specific mapping:
+     - Even-numbered positions: Uppercase letters
+     - Odd-numbered positions: Lowercase letters
+     - Characters for every fourth position
+     - The remaining positions: Special characters. 
 
-<strong>Your password:</strong> 123321246 </br>
-<strong>Selected function:</strong> x^2 + 2x </br>
+4. **Output:**
+   - The module returns a complex, randomized password string composed of letters, numbers, and special characters.
 
-  my_pwd = [1, 2, 3, 3, 2, 1, 2, 4, 6] </br>
-  my_function = [1, 2, 0]
+**Example Usage:**
 
-<h2>Now to instantiate</h2>
+```python
+from hard_password import HardPassword
 
-  new_pwd = HardPassword(my_pwd, my_function) </br>
-  new_pwd.create_pwd() </br>
- 
- <h3>Return</h3>
- 3*Oo8#Hw48
+# Your numerical password
+my_pwd = [1, 2, 3, 3, 2, 1, 2, 4, 6]
 
-<h1> Additional Tip </h1>
-Add our generated password to a phrase so its even more unique and hard to crack
+# Your encoding function (x² + 2x)
+my_function = [1, 2, 0]
 
-<h3>Ex:</h3>
-MyDogName3*Oo8#Hw48
+# Instantiate the HardPassword object
+new_pwd = HardPassword(my_pwd, my_function)
+
+# Generate the secure password
+new_pwd.create_pwd()
+```
+
+**Output:**
+```
+3*Oo8#Hw48 
+```
+
+**Key Benefits:**
+
+- **Enhanced Security:**  The combination of encoding and character mapping significantly strengthens password complexity.
+- **Customizability:**  You can adjust the encoding function to personalize your password generation process.
+- **Ease of Use:**  The module provides a simple interface for generating strong passwords with minimal effort.
+
+**Additional Tips:**
+
+- Combine your generated password with a memorable phrase for further security.
+- Store your password securely and avoid reusing it across different platforms.
+- Regularly update your password for optimal protection. 
+
+**Remember, strong passwords are crucial for protecting your online information.  This module empowers you to create truly uncrackable passwords with ease!** 
